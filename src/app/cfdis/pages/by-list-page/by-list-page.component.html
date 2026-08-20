@@ -1,0 +1,6 @@
+<section>
+  @if (!cfdiResource.isLoading() && !cfdiResource.error()) {
+    <list-cfdis-component
+      [lists]="cfdiResource.value() ?? []" />
+  }
+</section>
