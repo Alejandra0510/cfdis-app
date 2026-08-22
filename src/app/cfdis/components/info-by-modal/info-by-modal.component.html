@@ -1,0 +1,102 @@
+<details class="collapse bg-base-100 border-base-300 border">
+  <summary class="collapse-title font-semibold">Datos generales del comprobante</summary>
+  <div class="collapse-content text-sm">
+      <table class="table table-zebra">
+        <tr>
+          <th>Versión del comprobante</th>
+          <td>{{ items().version }}</td>
+          <th>Fecha</th>
+          <td>{{ items().fecha }}</td>
+          <th>Serie - Folio</th>
+          <td>{{ items().serie}} - {{items().folio }}</td>
+        </tr>
+        <tr>
+          <th>RFC Emisor</th>
+          <td>{{ items().emisor_rfc }}</td>
+          <th>Nombre Emisor</th>
+          <td>{{ items().emisor_nombre }}</td>
+          <th>Regimen Emisor</th>
+          <td>{{ items().emisor_regimen_f }}</td>
+        </tr>
+        <tr>
+          <th>RFC Receptor</th>
+          <td>{{ items().receptor_rfc }}</td>
+          <th>Nombre Receptor</th>
+          <td>{{ items().receptor_nombre }}</td>
+          <th>Regimen Receptor</th>
+          <td>{{ items().receptor_regimen }}</td>
+        </tr>
+        <tr>
+          <th>Uso CFDI Receptor</th>
+          <td>{{ items().receptor_uso_cfdi }}</td>
+          <th>Domicilio Receptor</th>
+          <td>{{ items().receptor_domicilio }}</td>
+          <th>Moneda</th>
+          <td>{{ items().moneda }}</td>
+        </tr>
+        <tr>
+          <th>Subtotal</th>
+          <td>{{ items().sub_total | currency }}</td>
+          <th>Total</th>
+          <td>{{ items().total | currency }}</td>
+          <th>Descuento</th>
+          <td>{{ items().descuento }}</td>
+        </tr>
+        <tr>
+          <th>Tipo comprobante</th>
+          <td>{{ items().t_comprobante }}</td>
+          <th>Forma pago</th>
+          <td>{{ items().forma_pago }}</td>
+          <th>Método de pago</th>
+          <td>{{ items().metodo_pago }}</td>
+        </tr>
+        <tr>
+          <th>Fecha de timbrado</th>
+          <td>{{ items().comp_fecha_timbrado }}</td>
+          <th>RFC Proveedor de timbrado</th>
+          <td>{{ items().comp_rfc_proov }}</td>
+          <th>Versión del timbrado</th>
+          <td>{{ items().comp_timbre_version}}</td>
+        </tr>
+      </table>
+  </div>
+</details>
+<br>
+<details class="collapse bg-base-100 border-base-300 border">
+  <summary class="collapse-title font-semibold">Conceptos del comprobante</summary>
+  <div class="collapse-content text-sm">
+    <table class="table table-zebra">
+      <tr>
+        <th>Clave Producto/Servicio</th>
+        <th>Unidad</th>
+        <th>Cantidad</th>
+        <th>Descripción</th>
+        <th>Valor Unitario</th>
+        <th>Importe</th>
+        <th>Descuento</th>
+        <th>Impuesto</th>
+      </tr>
+        @for (concepto of conceptos(); track $index) {
+          <tr>
+            <td>{{ concepto.claveProdServ }}</td>
+            <td>{{ concepto.unidad }}</td>
+            <td>{{ concepto.cantidad }}</td>
+            <td>{{ concepto.descripcion }}</td>
+            <td>{{ concepto.valorUnitario | currency}}</td>
+            <td>{{ concepto.importe | currency }}</td>
+            <td>{{ concepto.descuento | currency  }}</td>
+            <td>{{ concepto.objetoImp }}</td>
+          </tr>
+        }@empty {
+          <p class="text-sm text-gray-500 p-2">No se encontraron conceptos para este CFDI.</p>
+        }
+    </table>
+  </div>
+</details>
+
+  <!-- <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">Impuestos del comprobante</h2>
+
+    </div>
+  </div> -->

@@ -1,4 +1,4 @@
-<div class="table-auto md:table-fixed">
+<div class="table-auto md:table-fixed border border-base-content/5 bg-base-100">
   <table class="table table-md">
     <!-- head -->
     <thead>
@@ -30,7 +30,9 @@
           <td class="text-center">{{ list.tip_c }}</td>
           <td>{{ list.total | currency }}</td>
           <td class="text-center">
-            <button class="btn btn-warning"
+            <button
+              class="btn btn-warning"
+              (click)="openModalInfo( list.id )"
               title="Ver registro">
               <svg xmlns="http://www.w3.org/2000/svg"
                    width="20"
@@ -50,4 +52,5 @@
       }
     </tbody>
   </table>
+  <modal-info/>
 </div>

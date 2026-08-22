@@ -1,0 +1,23 @@
+<dialog #myModalInfoCFDI class="modal">
+  <div class="modal-box w-11/12 max-w-5xl">
+    <!-- Muestra spinner de carga si la petición está activa -->
+    @if (infoById.isLoading()) {
+      <div class="flex justify-center p-4">
+        <span class="loading loading-spinner loading-lg"></span>
+      </div>
+    }
+
+    <!-- Muestra el contenido cuando los datos llegan -->
+    @else if (infoById.value(); as cfdiInfo) {
+      <info-by-modal-component
+        [items] = "cfdiInfo"
+      />
+    }
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Cerrar</button>
+      </form>
+    </div>
+  </div>
+</dialog>

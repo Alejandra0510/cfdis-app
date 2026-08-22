@@ -11,6 +11,4 @@ export interface CFDI {
   frm_p: string,
   tip_c: string,
   total: number
-
-
 }

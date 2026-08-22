@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ListCfdisComponent } from "../../components/list-cfdis/list-cfdis.component";
 import { CfdisService } from '../../services/cfdis.service';
