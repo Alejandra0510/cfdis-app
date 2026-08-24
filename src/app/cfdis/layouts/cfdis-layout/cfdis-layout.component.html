@@ -1,4 +1,13 @@
-<menu-top/>
-<section class="px-4">
-  <router-outlet />
+<header class="sticky top-0 z-50 w-full bg-base-100 shadow-md">
+  <div class="navbar w-full p-4">
+    <menu-top class="w-full"/>
+  </div>
+</header>
+
+
+<section class="w-full min-h-[calc(100vh-64px)] bg-base-200/50 px-2 sm:px-6 py-4">
+  <div class="max-w-7xl mx-auto">
+    <router-outlet />
+  </div>
 </section>
+

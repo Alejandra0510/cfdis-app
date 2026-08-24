@@ -1,0 +1,27 @@
+<div class="flex flex-col sm:flex-row items-center justify-between gap-3 mt-4 px-2">
+  <span class="text-sm text-base-content/70 text-center sm:text-left">
+    Página <span class="font-bold">{{ page() }}</span> de <span class="font-bold">{{ totalPages() }}</span>
+    (<span class="font-bold">{{ totalRecords() }}</span> registros)
+  </span>
+
+  <!-- Controles daisyUI -->
+  <div class="join">
+    <button
+      class="join-item btn btn-sm"
+      [disabled]="page() <= 0"
+      (click)="prevPage()">
+      « Ant.
+    </button>
+
+    <button class="join-item btn btn-sm btn-ghost cursor-default">
+      {{ page() }}
+    </button>
+
+    <button
+      class="join-item btn btn-sm"
+      [disabled]="page() >= totalPages()"
+      (click)="nextPage()">
+      Sig. »
+    </button>
+  </div>
+</div>

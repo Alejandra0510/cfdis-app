@@ -1,6 +1,7 @@
 <details class="collapse bg-base-100 border-base-300 border">
   <summary class="collapse-title font-semibold">Datos generales del comprobante</summary>
   <div class="collapse-content text-sm">
+    <div class="overflow-x-auto">
       <table class="table table-zebra">
         <tr>
           <th>Versión del comprobante</th>
@@ -59,44 +60,44 @@
           <td>{{ items().comp_timbre_version}}</td>
         </tr>
       </table>
+    </div>
   </div>
 </details>
 <br>
 <details class="collapse bg-base-100 border-base-300 border">
   <summary class="collapse-title font-semibold">Conceptos del comprobante</summary>
   <div class="collapse-content text-sm">
-    <table class="table table-zebra">
-      <tr>
-        <th>Clave Producto/Servicio</th>
-        <th>Unidad</th>
-        <th>Cantidad</th>
-        <th>Descripción</th>
-        <th>Valor Unitario</th>
-        <th>Importe</th>
-        <th>Descuento</th>
-        <th>Impuesto</th>
-      </tr>
-        @for (concepto of conceptos(); track $index) {
-          <tr>
-            <td>{{ concepto.claveProdServ }}</td>
-            <td>{{ concepto.unidad }}</td>
-            <td>{{ concepto.cantidad }}</td>
-            <td>{{ concepto.descripcion }}</td>
-            <td>{{ concepto.valorUnitario | currency}}</td>
-            <td>{{ concepto.importe | currency }}</td>
-            <td>{{ concepto.descuento | currency  }}</td>
-            <td>{{ concepto.objetoImp }}</td>
-          </tr>
-        }@empty {
-          <p class="text-sm text-gray-500 p-2">No se encontraron conceptos para este CFDI.</p>
-        }
-    </table>
+    <div class="overflow-x-auto">
+      <table class="table table-zebra">
+        <tr>
+          <th>Clave Producto/Servicio</th>
+          <th>Unidad</th>
+          <th>Cantidad</th>
+          <th>Descripción</th>
+          <th>Valor Unitario</th>
+          <th>Importe</th>
+          <th>Descuento</th>
+          <th>Impuesto</th>
+        </tr>
+          @for (concepto of conceptos(); track $index) {
+            <tr>
+              <td>{{ concepto.claveProdServ }}</td>
+              <td>{{ concepto.unidad }}</td>
+              <td>{{ concepto.cantidad }}</td>
+              <td>{{ concepto.descripcion }}</td>
+              <td>{{ concepto.valorUnitario | currency}}</td>
+              <td>{{ concepto.importe | currency }}</td>
+              <td>{{ concepto.descuento | currency  }}</td>
+              <td>{{ concepto.objetoImp }}</td>
+            </tr>
+          }@empty {
+            <p class="text-sm text-gray-500 p-2">No se encontraron conceptos para este CFDI.</p>
+          }
+      </table>
+    </div>
   </div>
 </details>
-
-  <!-- <div class="card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title">Impuestos del comprobante</h2>
-
-    </div>
-  </div> -->
+<br>
+<details class="collapse bg-base-100 border-base-300 border">
+  <summary class="collapse-title font-semibold">Impuestos del comprobante </summary>
+</details>

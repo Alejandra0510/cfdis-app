@@ -1,5 +1,5 @@
 export interface CFDI {
-  id: number,
+  id   : number,
   fecha: Date,
   serie: string | null,
   folio: string | null,
@@ -10,5 +10,5 @@ export interface CFDI {
   met_p: string,
   frm_p: string,
   tip_c: string,
-  total: number
+  total: number,
 }

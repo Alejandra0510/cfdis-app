@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, input, signal } from "@angular/core";
 import { catchError, map, throwError } from "rxjs";
 
 import { cfdiMapper } from "../mapper/cfdis.mapper";
@@ -17,6 +17,7 @@ const api_url = 'http://10.9.9.15:8081/api/comprobantes';
 export class CfdisService {
 
   private http = inject(HttpClient);
+  public rowCount = signal<number>(0);
 
   getByAllCfdis = ( pagen: number, sizen: number ) => {
     return this.http.get<Comprobantes>(`${ api_url }/listar`, {
@@ -27,10 +28,16 @@ export class CfdisService {
     })
     .pipe(
       map(( resp ) => {
-        return cfdiMapper.mapCfdisItemsToCfdiArray( resp.informacion )
+        if(resp && resp.informacion.length > 0){
+          this.rowCount.set(resp.totalElementos);
+          return cfdiMapper.mapCfdisItemsToCfdiArray( resp.informacion );
+        } else {
+          throw new Error(`No hay registros para mostrar`);
+        }
       }),
       catchError(error => {
-        return throwError(() => new Error(`No se pudo obtener los registros ${ error }`));
+        console.error(`No se pudieron obtener los registros ${ error.message }`);
+        return throwError(() => new Error(`Ocurrió un error al obtener la información`));
       })
     )
   }
@@ -44,11 +51,10 @@ export class CfdisService {
     })
     .pipe(
       map(( result ) => {
-        console.log(byCfdiMapper.mapByCfdiToCfdi(result));
         return byCfdiMapper.mapByCfdiToCfdi( result );
       }),
       catchError( error => {
-        return throwError(() => new Error(`Ocurrió un problema al consultar la información ${ error }`));
+        return throwError(() => new Error(`Ocurrió un problema al consultar la información ${ error.message }`));
       })
     )
   }

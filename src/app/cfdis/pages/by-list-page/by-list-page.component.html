@@ -1,9 +1,15 @@
 <div class="mockup-browser border border-base-300 w-full">
   <div class="card">
     <div class="card-body">
-      @if (!cfdiResource.isLoading() && !cfdiResource.error()) {
+      @if (!cfdiResource.isLoading() && !cfdiResource.error() && cfdiResource.value()!.length > 0) {
         <list-cfdis-component
-          [lists]="cfdiResource.value() ?? []" />
+          [lists]="cfdiResource.value() ?? []"
+          [page]="page()"
+          [size]="size()"
+          [totalRecords]="totalReg()"
+          (pageChange)="onPageChange($event)" />
+      } @else {
+        <h2 class="text-lg sm:text-xl font-bold"> {{ cfdiResource.error()?.message }} </h2>
       }
     </div>
   </div>
