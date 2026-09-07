@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, effect, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'pagination-component',
@@ -6,41 +6,56 @@ import { Component, computed, input, output } from '@angular/core';
   templateUrl: './pagination.component.html',
 })
 
+
 export class PaginationComponent {
 
-  page = input.required<number>();
-  totalRecords = input.required<number>();
-  size = input<number>(10);
+  pages = input.required<number>();
+  rows  = input.required<number>();
 
-  // notifica el cambio de página
+  act_page  = input.required<number>();
+  page_size = input<number>(10);
+  page      = signal<number>(1);
+
   pageChange = output<number>();
 
-  // Cálculo derivado del total de páginas
-  totalPages = computed(() => {
-    const total = this.totalRecords();
-    const pageSize = this.size();
-    return total > 0 ? Math.ceil(total / pageSize) : 1;
+  // count = computed(() => {
+  //   console.log(this.page());
+  //   console.log(this.act_page());
+  //   console.log(this.page_size());
+  //   if (this.rows() === 0) return 0;
+  //   return (this.page() - 1) * this.page_size() + 1;
+  // });
+
+  size = computed(() => {
+    return Math.min(this.page() * this.page_size(), this.rows());
   });
 
-
   // Métodos de navegación
-  prevPage() {
-    if (this.page()) {
-      this.pageChange.emit(this.page() - 1);
+ prevPage() {
+    if (this.act_page()) {
+      this.page.set(this.page() - 1);
+      this.pageChange.emit(this.act_page() - 1);
     }
-  }
-
-  initPage(){
-
-  }
-
-  endPage(){
-
   }
 
   nextPage() {
-    if (this.page() < this.totalPages()) {
-      this.pageChange.emit(this.page() + 1);
+    debugger;
+    if (this.act_page() < this.pages()) {
+      this.page.update(() => this.page() + 1);
+      this.pageChange.emit(this.act_page() + 1);
     }
   }
+
+  goInit() {
+    if (this.act_page() > 1) {
+      this.pageChange.emit(0);
+    }
+  }
+
+  goEnd() {
+    if (this.act_page() < this.pages()) {
+      this.pageChange.emit(this.pages() - 1);
+    }
+  }
+
 }

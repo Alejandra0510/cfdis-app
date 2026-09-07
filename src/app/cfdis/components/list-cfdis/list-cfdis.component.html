@@ -61,13 +61,12 @@
         </tbody>
       </table>
     </div>
-    <pagination-component
-      [page]="page()"
-      [totalRecords]="totalRecords()"
-      [size]="size()"
-      (pageChange)="onPageChange($event)"
-    />
     <modal-info />
-
+    <pagination-component
+      [rows]="rows()"
+      [pages]="pages()"
+      [act_page] = "page_act()"
+      (pageChange)="pageChange.emit($event)"
+    />
   </div>
 </div>

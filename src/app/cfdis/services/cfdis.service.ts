@@ -17,19 +17,23 @@ const api_url = 'http://10.9.9.15:8081/api/comprobantes';
 export class CfdisService {
 
   private http = inject(HttpClient);
-  public rowCount = signal<number>(0);
 
-  getByAllCfdis = ( pagen: number, sizen: number ) => {
+  public count_rows = signal<number>(0);
+  public total_pages = signal<number>(0);
+
+  getByAllCfdis = (sizen: number, page_init: number ) => {
     return this.http.get<Comprobantes>(`${ api_url }/listar`, {
       params: {
         size: sizen,
-        page: pagen,
+        page: page_init
       }
     })
     .pipe(
       map(( resp ) => {
+        console.log(resp);
         if(resp && resp.informacion.length > 0){
-          this.rowCount.set(resp.totalElementos);
+          this.count_rows.set( resp.totalElementos );
+          this.total_pages.set( resp.totalPaginas );
           return cfdiMapper.mapCfdisItemsToCfdiArray( resp.informacion );
         } else {
           throw new Error(`No hay registros para mostrar`);

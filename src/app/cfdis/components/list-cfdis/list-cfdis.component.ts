@@ -1,4 +1,4 @@
-import { Component, computed, input, output, ViewChild } from '@angular/core';
+import { Component, computed, input, output, signal, ViewChild } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 
 import { CFDI } from '../../interfaces/cfdi.interface';
@@ -13,9 +13,12 @@ import { PaginationComponent } from "../pagination/pagination.component";
 export class ListCfdisComponent {
   lists = input.required<CFDI[]>();
 
-  page = input.required<number>();
   size = input.required<number>();
-  totalRecords = input.required<number>();
+
+  rows = input.required<number>();
+  pages = input.required<number>();
+
+  page_act = input.required<number>();
 
   pageChange = output<number>();
 
@@ -23,9 +26,5 @@ export class ListCfdisComponent {
 
   openModalInfo(id: number): void {
     this.modalInfo.open(id);
-  }
-
-  onPageChange(newPage: number) {
-    this.pageChange.emit(newPage);
   }
 }

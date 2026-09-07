@@ -13,18 +13,19 @@ export class ByListPageComponent {
   cfdiService = inject(CfdisService);
 
   size = signal<number>(10);
-  page = signal<number>(0);
+  page_initial = signal<number>(0);
 
-  totalReg = this.cfdiService.rowCount; //trae el total de los registros
+  rows_count = this.cfdiService.count_rows;
+  pages_count = this.cfdiService.total_pages;
 
   cfdiResource = rxResource({
-    params: () => ({ size: this.size(), page: this.page() }),
+    params: () => ({ size: this.size(), page: this.page_initial() }),
     stream: ({ params }) => {
-      return this.cfdiService.getByAllCfdis( params.page, params.size )
+      return this.cfdiService.getByAllCfdis( params.size, params.page )
     }
   })
 
   onPageChange(newPage: number) {
-    this.page.set(newPage);
+    this.page_initial.set(newPage);
   }
 }

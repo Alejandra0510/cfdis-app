@@ -1,4 +1,3 @@
-import { ByCfdi } from "../interfaces/by.cfdi.interface";
 import { toCFDI } from "../interfaces/to.cfdi.interface";
 
 export class byCfdiMapper {

@@ -1,27 +1,45 @@
 <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mt-4 px-2">
   <span class="text-sm text-base-content/70 text-center sm:text-left">
-    Página <span class="font-bold">{{ page() }}</span> de <span class="font-bold">{{ totalPages() }}</span>
-    (<span class="font-bold">{{ totalRecords() }}</span> registros)
+    Mostrando <span class="font-bold">{{ page() }}</span> a <span class="font-bold">{{ size() }}</span>
+    de <span class="font-bold">{{ rows() }}</span> registros
   </span>
 
-  <!-- Controles daisyUI -->
   <div class="join">
-    <button
-      class="join-item btn btn-sm"
-      [disabled]="page() <= 0"
-      (click)="prevPage()">
-      « Ant.
+    <button class="join-item btn"
+            title="Ir al inicio"
+            (click)="goInit()"
+            [disabled]="act_page() < 1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path fill="currentColor" d="M16.51 4.018a1.504 1.504 0 0 1 1.448 2.37l-4.1 5.61l4.1 5.61a1.502 1.502 0 0 1-1.445 2.33a1.5 1.5 0 0 1-.975-.56l-5.4-7.38l5.39-7.38a1.5 1.5 0 0 1 .982-.6M7 5.998a1 1 0 0 1 1 1v10a1 1 0 0 1-2 0v-10a1 1 0 0 1 1-1" />
+      </svg>
     </button>
-
-    <button class="join-item btn btn-sm btn-ghost cursor-default">
-      {{ page() }}
+    <button class="join-item btn"
+            (click)="prevPage()"
+            title="Página anterior"
+            [disabled]="act_page() < 1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path fill="currentColor" d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64" />
+      </svg>
     </button>
-
-    <button
-      class="join-item btn btn-sm"
-      [disabled]="page() >= totalPages()"
-      (click)="nextPage()">
-      Sig. »
+    <button class="join-item btn">{{ act_page() }}</button>
+    <button class="join-item btn"
+            (click)="nextPage()"
+            title="Página siguiente">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path fill="currentColor" d="M10.02 6L8.61 7.41L13.19 12l-4.58 4.59L10.02 18l6-6z" />
+      </svg>
+    </button>
+    <button class="join-item btn"
+            title="Ir al final"
+            (click)="goEnd()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        	<path d="M0 0h24v24H0z" fill="none" />
+        	<path fill="currentColor" d="M6.905 4.044a1.5 1.5 0 0 1 1.567.576l5.39 7.38l-5.4 7.38a1.501 1.501 0 0 1-2.657-.672a1.5 1.5 0 0 1 .237-1.098l4.1-5.61l-4.1-5.61a1.503 1.503 0 0 1 .863-2.346M17 6a1 1 0 0 1 1 1v10a1 1 0 0 1-2 0V7a1 1 0 0 1 1-1" />
+        </svg>
     </button>
   </div>
 </div>
+
