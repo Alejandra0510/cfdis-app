@@ -31,7 +31,9 @@ export interface toCFDI {
   comp_sello_cfd:      string,
   comp_certificado:    string,
   comp_rfc_proov:      string,
-  conceptos:           ConceptoById[]
+  conceptos:           ConceptoById[],
+  total_retenidos:     null,
+  total_trasladados:   number
 }
 
 
@@ -47,3 +49,4 @@ export interface ConceptoById {
   descuento:         string | null,
   objetoImp:         string,
 }
+

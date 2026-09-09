@@ -1,0 +1,139 @@
+<details class="collapse bg-base-100 border-base-300 border">
+  <summary class="collapse-title font-semibold text-xl">Datos generales del comprobante</summary>
+  <div class="collapse-content text-sm">
+    <div class="overflow-x-auto">
+      <div class="grid grid-cols-3 gap-4">
+        <div>
+          <strong> Versión del comprobante </strong>
+          <br>
+          {{ gral().version }}
+        </div>
+        <div>
+          <strong> Fecha </strong>
+          <br>
+          {{ gral().fecha }}
+        </div>
+        <div>
+          <strong> Serie - Folio </strong>
+          <br>
+          {{ gral().serie}} - {{gral().folio }}
+        </div>
+        <div>
+          <strong> RFC Emisor </strong>
+          <br>
+          {{ gral().emisor_rfc }}
+        </div>
+        <div>
+          <strong> Nombre del Emisor </strong>
+          <br>
+          {{ gral().emisor_nombre }}
+        </div>
+        <div>
+          <strong> Regimen Emisor </strong>
+          <br>
+          {{ gral().emisor_regimen_f }}
+        </div>
+        <div>
+          <strong> RFC Receptor </strong>
+          <br>
+          {{ gral().receptor_rfc }}
+        </div>
+        <div>
+          <strong> Nombre del Receptor </strong>
+          <br>
+          {{ gral().receptor_nombre }}
+        </div>
+        <div>
+          <strong> Regimen Receptor </strong>
+          <br>
+          {{ gral().receptor_regimen }}
+        </div>
+        <div>
+          <strong> CFDI Receptor </strong>
+          <br>
+          {{ gral().receptor_uso_cfdi }}
+        </div>
+        <div>
+          <strong> Domicilio del Receptor </strong>
+          <br>
+          {{ gral().receptor_domicilio }}
+        </div>
+        <div>
+          <strong> Moneda </strong>
+          <br>
+          {{ gral().moneda }}
+        </div>
+        <div>
+          <strong> Subtotal </strong>
+          <br>
+          {{ gral().sub_total }}
+        </div>
+        <div>
+          <strong> Total </strong>
+          <br>
+          {{ gral().total }}
+        </div>
+        <div>
+          <strong> Descuento </strong>
+          <br>
+          {{ gral().descuento }}
+        </div>
+        <div>
+          <strong> Tipo comprobante </strong>
+          <br>
+          {{ gral().t_comprobante }}
+        </div>
+        <div>
+          <strong> Forma pago </strong>
+          <br>
+          {{ gral().forma_pago }}
+        </div>
+        <div>
+          <strong> Método de pago </strong>
+          <br>
+          {{ gral().metodo_pago }}
+        </div>
+        <div>
+          <strong> Fecha de timbrado </strong>
+          <br>
+          {{ gral().comp_fecha_timbrado }}
+        </div>
+        <div>
+          <strong> RFC Proveedor de timbrado </strong>
+          <br>
+          {{ gral().metodo_pago }}
+        </div>
+        <div>
+          <strong> Método de pago </strong>
+          <br>
+          {{ gral().metodo_pago }}
+        </div>
+        <div>
+          <strong> Fecha de timbrado </strong>
+          <br>
+          {{ gral().comp_fecha_timbrado }}
+        </div>
+        <div>
+          <strong> RFC Proveedor de timbrado </strong>
+          <br>
+          {{ gral().comp_rfc_proov }}
+        </div>
+        <div>
+          <strong> Versión del timbrado </strong>
+          <br>
+          {{ gral().comp_timbre_version }}
+        </div>
+        <div>
+          <strong> Impuesto Total Trasladado </strong>
+          <br>
+          {{ gral().total_trasladados }}
+        </div>
+        <div>
+          <strong> Impuesto Total Retenido </strong>
+          <br>
+          {{ gral().total_retenidos }}
+        </div>
+      </div>
+    </div>
+  </div>
+</details>

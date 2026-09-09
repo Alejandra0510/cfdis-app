@@ -30,7 +30,6 @@ export class CfdisService {
     })
     .pipe(
       map(( resp ) => {
-        console.log(resp);
         if(resp && resp.informacion.length > 0){
           this.count_rows.set( resp.totalElementos );
           this.total_pages.set( resp.totalPaginas );

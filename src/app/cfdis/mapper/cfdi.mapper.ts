@@ -36,7 +36,9 @@ export class byCfdiMapper {
       comp_sello_cfd:          data.complementos.timbreFiscal.selloCFD,
       comp_certificado:        data.complementos.timbreFiscal.noCertificadoSAT,
       comp_rfc_proov:          data.complementos.timbreFiscal.rfcProvCertif,
-      conceptos:               data.conceptos ?? data.Conceptos ?? []
+      total_retenidos:         data.impuestos.totalImpuestosRetenidos,
+      total_trasladados:       data.impuestos.totalImpuestosTrasladados,
+      conceptos:               data.conceptos ?? data.Conceptos ?? [],
     }
   }
 }
