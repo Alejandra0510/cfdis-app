@@ -1,4 +1,5 @@
 import { Component, computed, effect, input, output, signal } from '@angular/core';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'pagination-component',
@@ -42,7 +43,7 @@ export class PaginationComponent {
   }
 
   goInit() {
-    if (this.act_page() > 1) {
+    if (this.act_page() > 0) {
       this.pageChange.emit(0);
     }
   }

@@ -1,33 +1,80 @@
 <details class="collapse bg-base-100 border-base-300 border">
   <summary class="collapse-title font-semibold text-xl">Conceptos del comprobante</summary>
   <div class="collapse-content text-sm">
-    <div class="overflow-x-auto">
-      <table class="table table-zebra">
-        <tr>
-          <th>Clave Producto/Servicio</th>
-          <th>Unidad</th>
-          <th>Cantidad</th>
-          <th>Descripción</th>
-          <th>Valor Unitario</th>
-          <th>Importe</th>
-          <th>Descuento</th>
-          <th>Impuesto</th>
-        </tr>
-          @for (concepto of ctos(); track $index) {
-            <tr>
-              <td>{{ concepto.claveProdServ }}</td>
-              <td>{{ concepto.unidad }}</td>
-              <td>{{ concepto.cantidad }}</td>
-              <td>{{ concepto.descripcion }}</td>
-              <td>{{ concepto.valorUnitario | currency}}</td>
-              <td>{{ concepto.importe | currency }}</td>
-              <td>{{ concepto.descuento | currency  }}</td>
-              <td>{{ concepto.objetoImp }}</td>
-            </tr>
-          }@empty {
-            <p class="text-sm text-gray-500 p-2">No se encontraron conceptos para este CFDI.</p>
-          }
-      </table>
-    </div>
+    @if (ctos().length > 0) {
+      @for (item of ctos(); track $index; let idx = $index) {
+        <div class="card card-border mb-2">
+          <div class="card-body">
+            <h2 class="card-title">Concepto {{ idx + 1 }}</h2>
+            <div class="grid grid-cols-4">
+              <div>
+                <p>
+                  <strong> Clave Producto/Servicio </strong>
+                  <br>
+                  {{ item.claveProdServ }}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong> Unidad </strong>
+                  <br>
+                  {{ item.unidad }}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong> Cantidad </strong>
+                  <br>
+                  {{ item.cantidad }}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong> Descripción </strong>
+                  <br>
+                  {{ item.descripcion }}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong> Valor Unitario </strong>
+                  <br>
+                  {{ item.valorUnitario | currency}}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong> Importe </strong>
+                  <br>
+                  {{ item.importe | currency}}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong> Descuento </strong>
+                  <br>
+                  {{ item.descuento | currency}}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong> ¿Impuesto? </strong>
+                  <br>
+                  {{ item.objetoImp === '02' ? 'Si' : 'No' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    } @else {
+      <div role="alert" class="alert alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Sin Información</span>
+      </div>
+    }
+
   </div>
 </details>
