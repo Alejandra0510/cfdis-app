@@ -12,9 +12,9 @@ export class InfoConceptosComponent {
 
   ctos = input.required<ConceptoById[]>();
 
-  //debuggear
-  ctos_dtl = effect(() => {
-    console.log( this.ctos() )
-  });
+  // debuggear
+  // ctos_dtl = effect(() => {
+  //   console.log( this.ctos() )
+  // });
 
 }

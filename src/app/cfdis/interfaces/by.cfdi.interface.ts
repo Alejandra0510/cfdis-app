@@ -56,11 +56,11 @@ export interface Concepto {
   importe:          number;
   descuento:        null;
   objetoImp:        string;
-  impuestos:        ConceptoImpuestos;
+  impuestos?:       ConceptoImpuestos;
 }
 
 export interface ConceptoImpuestos {
-  traslados:   Traslado[];
+  traslados?:   Traslado[];
   retenciones: any[];
 }
 

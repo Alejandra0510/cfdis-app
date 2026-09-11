@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { CfdisService } from '../../services/cfdis.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
@@ -24,6 +24,7 @@ export class ModalInfoComponent {
     }
   });
 
+
   @ViewChild('myModalInfoCFDI') modalRef!: ElementRef<HTMLDialogElement>;
 
   // Método público para abrir el modal desde fuera
@@ -33,7 +34,9 @@ export class ModalInfoComponent {
   }
 
 
-
-
-
+  deb = effect(() => {
+    console.log(this.infoById.value());
+    console.log(this.infoById.isLoading());
+    console.log((this.infoById.value()?.conceptos));
+  })
 }

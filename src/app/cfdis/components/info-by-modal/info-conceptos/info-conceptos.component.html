@@ -11,7 +11,7 @@
                 <p>
                   <strong> Clave Producto/Servicio </strong>
                   <br>
-                  {{ item.claveProdServ }}
+                  {{ item.cve_prod_serv }}
                 </p>
               </div>
               <div>
@@ -39,7 +39,7 @@
                 <p>
                   <strong> Valor Unitario </strong>
                   <br>
-                  {{ item.valorUnitario | currency}}
+                  {{ item.valor_unitario | currency}}
                 </p>
               </div>
               <div>
@@ -60,7 +60,7 @@
                 <p>
                   <strong> ¿Impuesto? </strong>
                   <br>
-                  {{ item.objetoImp === '02' ? 'Si' : 'No' }}
+                  {{ item.flag_impuesto === '02' ? 'Si' : 'No' }}
                 </p>
               </div>
             </div>

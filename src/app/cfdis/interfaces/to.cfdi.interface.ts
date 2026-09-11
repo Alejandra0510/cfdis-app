@@ -32,24 +32,28 @@ export interface toCFDI {
   comp_certificado:      string,
   comp_rfc_proov:        string,
   conceptos:             ConceptoById[],
-  imp_trasladado:        ImpuestoDetalle[],
-  imp_retencion:         ImpuestoDetalle[],
-  t_imp_retenido:        number,
-  t_imp_trasladado:      number
+  total_impuestos?:      totalImpuestos[],
 }
 
 export interface ConceptoById {
-  claveProdServ:       string,
-  noIdentificacion:    string,
+  cve_prod_serv:       string,
+  no_identificacion:   string,
   cantidad:            number,
-  claveUnidad:         string,
+  cve_unidad:          string,
   unidad:              string,
   descripcion:         string,
-  valorUnitario:       number,
+  valor_unitario:      number,
   importe:             number,
-  descuento:           string | null,
-  objetoImp:           string,
+  descuento:           null,
+  flag_impuesto:       string,
   impuestos_ctos:      ImpTotalesC
+}
+
+export interface totalImpuestos{
+    total_traslados:     ImpuestoDetalle[];
+    total_retenciones:   ImpuestoDetalle[];
+    total_imp_ret:       null;
+    total_imp_tras:      number;
 }
 
 export interface ImpTotalesC {
