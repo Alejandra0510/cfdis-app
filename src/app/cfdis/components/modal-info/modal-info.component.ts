@@ -34,9 +34,9 @@ export class ModalInfoComponent {
   }
 
 
-  deb = effect(() => {
-    console.log(this.infoById.value());
-    console.log(this.infoById.isLoading());
-    console.log((this.infoById.value()?.conceptos));
-  })
+  // deb = effect(() => {
+  //   console.log(this.infoById.value());
+  //   console.log(this.infoById.isLoading());
+  //   console.log((this.infoById.value()?.conceptos));
+  // })
 }

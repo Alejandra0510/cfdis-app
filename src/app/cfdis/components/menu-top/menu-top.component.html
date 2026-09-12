@@ -17,9 +17,8 @@
       Lista
     </button>
     <button class="btn btn-sm sm:btn-md px-2 sm:px-4"
-            routerLink="by-carga-comp"
-            routerLinkActive="btn-info"
-            title="Cargar comprobante">
+            title="Cargar comprobante"
+            (click)="openModalSaveFile()">
         <svg xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -50,4 +49,5 @@
       </button>
     </div>
   </div>
+  <modal-file />
 </div>

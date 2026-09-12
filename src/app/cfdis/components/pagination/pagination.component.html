@@ -23,7 +23,16 @@
         <path fill="currentColor" d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64" />
       </svg>
     </button>
-    <button class="join-item btn">{{ act_page() }}</button>
+    <select class="select [&::picker(select)]:max-h-50"
+            #miSelect
+            (change)="showPage(miSelect.value)">
+      @for (item of elementos(); track $index) {
+        <option [value]="item"
+                [selected]="item === act_page()">{{ item }}</option>
+      }
+    </select>
+    <!-- <button class="join-item btn"
+            (click)="showListPages()">{{ act_page() }}</button> -->
     <button class="join-item btn"
             (click)="nextPage()"
             title="Página siguiente">

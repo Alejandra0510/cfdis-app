@@ -2,79 +2,56 @@
   <summary class="collapse-title font-semibold text-xl">Conceptos del comprobante</summary>
   <div class="collapse-content text-sm">
     @if (ctos().length > 0) {
-      @for (item of ctos(); track $index; let idx = $index) {
-        <div class="card card-border mb-2">
-          <div class="card-body">
-            <h2 class="card-title">Concepto {{ idx + 1 }}</h2>
-            <div class="grid grid-cols-4">
-              <div>
-                <p>
-                  <strong> Clave Producto/Servicio </strong>
-                  <br>
-                  {{ item.cve_prod_serv }}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong> Unidad </strong>
-                  <br>
-                  {{ item.unidad }}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong> Cantidad </strong>
-                  <br>
-                  {{ item.cantidad }}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong> Descripción </strong>
-                  <br>
-                  {{ item.descripcion }}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong> Valor Unitario </strong>
-                  <br>
-                  {{ item.valor_unitario | currency}}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong> Importe </strong>
-                  <br>
-                  {{ item.importe | currency}}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong> Descuento </strong>
-                  <br>
-                  {{ item.descuento | currency}}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong> ¿Impuesto? </strong>
-                  <br>
-                  {{ item.flag_impuesto === '02' ? 'Si' : 'No' }}
-                </p>
+        @for (item of ctos(); track $index; let idx = $index) {
+          <div class="card card-dash bg-base-100 shadow-sm mb-3">
+            <div class="card-body">
+              <h2 class="card-title">Concepto {{ idx + 1 }}</h2>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-3 gap-3">
+                  <div><strong>Clave, Producto o Servicio:</strong> {{ item.cve_prod_serv }}</div>
+                  <div><strong>Unidad:</strong> {{ item.unidad }}</div>
+                  <div><strong>Cantidad:</strong> {{ item.cantidad }}</div>
+                  <div><strong>Descripción:</strong> {{ item.descripcion }}</div>
+                  <div><strong>Valor Unitario:</strong> {{ item.valor_unitario | currency}}</div>
+                  <div><strong>Importe:</strong> {{ item.importe | currency}}</div>
+                  <div><strong>Descuento:</strong> {{ item.descuento | currency}}</div>
+                  <div><strong>¿Impuesto?</strong> {{ item.flag_impuesto === '01' ? 'No' : 'Si' }}</div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  @for (item_it of item.impuestos_ctos.imp_trasladado_ct; track $index; let id_it = $index;) {
+                    <div>
+                      <strong>Impuesto Trasladado {{ id_it + 1 }} </strong>
+                      <p><strong>Base:</strong>{{ item_it.base | currency}}</p>
+                      <p><strong>Importe:</strong>{{ item_it.importe | currency}}</p>
+                      <p><strong>Impuesto:</strong>{{ item_it.impuesto}}</p>
+                      <p><strong>Tasa o Cuota:</strong>{{ item_it.tasaOCuota}}</p>
+                      <p><strong>Tipo Factor:</strong>{{ item_it.tipoFactor}}</p>
+                    </div>
+                  }
+                </div>
+                <div class="grid grid-cols-2 gap">
+                  @for (item_ir of item.impuestos_ctos.imp_retenido_ct; track $index; let id_ir = $index) {
+                    <div>
+                      <strong>Impuesto Trasladado {{ id_ir + 1 }} </strong>
+                      <p><strong>Base:</strong>{{ item_ir.base | currency}}</p>
+                      <p><strong>Importe:</strong>{{ item_ir.importe | currency}}</p>
+                      <p><strong>Impuesto:</strong>{{ item_ir.impuesto}}</p>
+                      <p><strong>Tasa o Cuota:</strong>{{ item_ir.tasaOCuota}}</p>
+                      <p><strong>Tipo Factor:</strong>{{ item_ir.tipoFactor}}</p>
+                    </div>
+                  }
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      }
+        }
     } @else {
       <div role="alert" class="alert alert-error">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span>Sin Información</span>
+        <span>Sin Información de Conceptos</span>
       </div>
     }
-
   </div>
 </details>

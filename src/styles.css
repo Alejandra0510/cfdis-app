@@ -2,5 +2,5 @@
 
 @import 'tailwindcss';
 @plugin "daisyui"{
-  themes: garden --default, cupcake;
+  themes: cupcake --default, garden;
 }

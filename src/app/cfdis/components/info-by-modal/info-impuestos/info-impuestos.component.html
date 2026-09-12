@@ -1,7 +1,41 @@
 <details class="collapse bg-base-100 border-base-300 border">
-  <summary class="collapse-title font-semibold text-xl">Impuestos generales del comprobante</summary>
+  <summary class="collapse-title font-semibold text-xl">Impuestos totales del comprobante</summary>
   <div class="collapse-content text-sm">
     @if(imptos()){
+      <div class="grid grid-cols-3 md:grid-cols-3 gap-4">
+        @for (item of imptos(); track $index) {
+          @for (item_it of item.total_traslados; track $index; let idx= $index) {
+            <div>
+              <strong>Impuesto Trasladado {{ idx + 1 }} </strong>
+              <p><strong>Base:</strong>{{ item_it.base | currency}}</p>
+              <p><strong>Importe:</strong>{{ item_it.importe | currency}}</p>
+              <p><strong>Impuesto:</strong>{{ item_it.impuesto}}</p>
+              <p><strong>Tasa o Cuota:</strong>{{ item_it.tasaOCuota}}</p>
+              <p><strong>Tipo Factor:</strong>{{ item_it.tipoFactor}}</p>
+            </div>
+          }
+          @for (item_ir of item.total_retenciones; track $index; let idx= $index) {
+            <div>
+              <strong>Impuesto Retenido {{ idx + 1 }} </strong>
+              <p><strong>Base:</strong>{{ item_ir.base | currency}}</p>
+              <p><strong>Importe:</strong>{{ item_ir.importe | currency}}</p>
+              <p><strong>Impuesto:</strong>{{ item_ir.impuesto}}</p>
+              <p><strong>Tasa o Cuota:</strong>{{ item_ir.tasaOCuota}}</p>
+              <p><strong>Tipo Factor:</strong>{{ item_ir.tipoFactor}}</p>
+            </div>
+          }
+          <div>
+            <strong>Impuesto total trasladado</strong><br>
+            {{ item.total_imp_tras | currency }}
+          </div>
+          @if(item.total_imp_ret){
+            <div>
+              <strong>Impuesto total retenido</strong><br>
+              {{ item.total_imp_ret }}
+            </div>
+          }
+        }
+      </div>
 
     } @else {
       <div role="alert" class="alert alert-error alert-soft">

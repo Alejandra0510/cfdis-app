@@ -1,5 +1,4 @@
 import { Component, computed, effect, input, output, signal } from '@angular/core';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'pagination-component',
@@ -17,6 +16,8 @@ export class PaginationComponent {
   page_size = input<number>(10);
 
   pageChange = output<number>();
+  elementos = computed(() => Array.from({ length: this.pages() }, (_, i) => i));
+
 
   // Registro inicial mostrado (1-based para el usuario)
   from = computed(() => {
@@ -53,5 +54,16 @@ export class PaginationComponent {
       this.pageChange.emit(this.pages() - 1);
     }
   }
+
+
+showPage( page_change: string){
+  if(typeof(page_change) != 'string') return;
+  this.pageChange.emit(Number(page_change));
+}
+
+  // deb = effect(() => {
+  //   console.log(this.pages());
+  //   console.log(this.elementos());
+  // })
 
 }
