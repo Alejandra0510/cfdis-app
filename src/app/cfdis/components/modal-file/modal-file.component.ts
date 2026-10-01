@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'modal-file',
@@ -12,6 +12,13 @@ export class ModalFileComponent {
   // Método público para abrir el modal desde fuera
   open(): void {
     this.modalRef.nativeElement.showModal();
+  }
+
+
+  saveFile(event: any ){
+
+    console.log(event.target);
+
   }
 
 }

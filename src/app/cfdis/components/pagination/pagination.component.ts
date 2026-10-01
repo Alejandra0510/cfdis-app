@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, output, signal } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 
 @Component({
   selector: 'pagination-component',
@@ -56,14 +56,10 @@ export class PaginationComponent {
   }
 
 
-showPage( page_change: string){
-  if(typeof(page_change) != 'string') return;
-  this.pageChange.emit(Number(page_change));
-}
+  showPage( page_change: string){
+    if(typeof(page_change) != 'string') return;
+    this.pageChange.emit(Number(page_change));
+  }
 
-  // deb = effect(() => {
-  //   console.log(this.pages());
-  //   console.log(this.elementos());
-  // })
 
 }

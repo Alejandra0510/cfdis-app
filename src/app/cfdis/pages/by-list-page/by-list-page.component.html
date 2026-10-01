@@ -9,6 +9,7 @@
           [pages]="pages_count()"
           [page_act] = "page_initial()"
           (pageChange)="onPageChange($event)"
+          (flagChecked)="onChangeOrder( $event)"
         />
       } @else {
         <h2 class="text-lg sm:text-xl font-bold"> {{ cfdiResource.error()?.message }} </h2>

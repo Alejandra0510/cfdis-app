@@ -1,0 +1,26 @@
+
+<dialog #myModalInfoJSON class="modal">
+  <div class="modal-box w-11/12 max-w-5xl">
+    <h3 class="text-lg font-bold">Visualizando información en formato JSON</h3>
+
+    <!-- Muestra spinner de carga si la petición está activa -->
+    @if (infoById.isLoading()) {
+      <div class="flex justify-center p-4">
+        <span class="loading loading-spinner loading-lg"> Cargando.... </span>
+      </div>
+    }
+
+    <!-- Muestra el contenido cuando los datos llegan -->
+    @else if(infoById.value(); as cfdiInfo){
+      <pre
+      >{{ cfdiInfo | json }}
+      </pre>
+    }
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Cerrar</button>
+      </form>
+    </div>
+  </div>
+</dialog>

@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, input, signal } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { catchError, map, throwError } from "rxjs";
 
 import { cfdiMapper } from "../mapper/cfdis.mapper";
@@ -21,11 +21,17 @@ export class CfdisService {
   public count_rows = signal<number>(0);
   public total_pages = signal<number>(0);
 
-  getByAllCfdis = (sizen: number, page_init: number ) => {
+  getByAllCfdis = (sizen: number, page_init: number, filter: number ) => {
+    debugger;
+
+    const search = (filter === 1) ? 'sort: fechaImportacion,desc' : '';
+    console.log(search);
+
     return this.http.get<Comprobantes>(`${ api_url }/listar`, {
       params: {
         size: sizen,
-        page: page_init
+        page: page_init,
+        search,
       }
     })
     .pipe(
@@ -60,6 +66,13 @@ export class CfdisService {
         return throwError(() => new Error(`Ocurrió un problema al consultar la información ${ error.message }`));
       })
     )
+  }
+
+
+  uploadFileXML( file: File){
+
+    console.log({file});
+
   }
 
 }

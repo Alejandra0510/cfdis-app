@@ -3,17 +3,23 @@
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    <h3 class="text-lg font-bold">Subir archivo</h3>
+    <h3 class="text-lg font-bold">Importar Comprobante</h3>
     <br>
-    <div>
-      <input type="file" class="file-input file-input-accent w-md" />
-      <span class="text-error">Archivos de tipo XML</span>
-    </div>
+    <form #formFile>
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Seleccione un archivo</legend>
+        <input type="file"
+              class="file-input w-full"
+              accept="text/xml" />
+        <label class="label text-error">Archivos tipo XML</label>
+      </fieldset>
       <div class="modal-action">
-      <form method="dialog">
-        <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md mr-2">Salir</button>
-        <button class="btn btn-success btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md">Guardar</button>
-      </form>
-    </div>
+        <form method="dialog">
+          <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md mr-2">Salir</button>
+          <button type="submit"
+            class="btn btn-success btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md">Guardar</button>
+        </form>
+      </div>
+    </form>
   </div>
 </dialog>
