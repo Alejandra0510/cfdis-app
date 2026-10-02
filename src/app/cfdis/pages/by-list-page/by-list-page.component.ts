@@ -12,15 +12,16 @@ export class ByListPageComponent {
 
   cfdiService = inject(CfdisService);
 
-  size = signal<number>(10);
+  size         = signal<number>(10);
+  filter       = signal<number>(0);
   page_initial = signal<number>(0);
-  filter = signal<number>(0);
 
   rows_count = this.cfdiService.count_rows;
   pages_count = this.cfdiService.total_pages;
 
+
   cfdiResource = rxResource({
-    params: () => ({ size: this.size(), page: this.page_initial(), filter:  this.filter()}),
+    params: () => ({ size: this.size(), page: this.page_initial(), filter: this.filter() }),
     stream: ({ params }) => {
       return this.cfdiService.getByAllCfdis( params.size, params.page, params.filter )
     }
@@ -30,9 +31,7 @@ export class ByListPageComponent {
     this.page_initial.set(newPage);
   }
 
-
   onChangeOrder( change: number ){
-    console.log(change);
     this.filter.set(change);
   }
 

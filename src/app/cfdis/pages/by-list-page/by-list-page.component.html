@@ -8,6 +8,7 @@
           [rows]="rows_count()"
           [pages]="pages_count()"
           [page_act] = "page_initial()"
+          [checked]="filter()"
           (pageChange)="onPageChange($event)"
           (flagChecked)="onChangeOrder( $event)"
         />

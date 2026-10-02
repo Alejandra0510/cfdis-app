@@ -3,21 +3,22 @@
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    <h3 class="text-lg font-bold">Importar Comprobante</h3>
+    <h2 class="text-lg font-bold">Importar Comprobante</h2>
     <br>
-    <form #formFile>
+    <form autocomplete="off" [formGroup]="formFile" ngOnSubmit="saveFile()">
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Seleccione un archivo</legend>
         <input type="file"
               class="file-input w-full"
-              accept="text/xml" />
-        <label class="label text-error">Archivos tipo XML</label>
+              accept="text/xml"
+              (change)="onFileChange($event)" />
+        <span class="label text-error">Archivos tipo XML</span>
       </fieldset>
       <div class="modal-action">
         <form method="dialog">
-          <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md mr-2">Salir</button>
+          <button class="btn btn-secondary btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md mr-2">Cancelar</button>
           <button type="submit"
-            class="btn btn-success btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md">Guardar</button>
+                  class="btn btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md">Guardar</button>
         </form>
       </div>
     </form>

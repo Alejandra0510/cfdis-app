@@ -18,20 +18,18 @@ export class CfdisService {
 
   private http = inject(HttpClient);
 
-  public count_rows = signal<number>(0);
+  public count_rows  = signal<number>(0);
   public total_pages = signal<number>(0);
 
   getByAllCfdis = (sizen: number, page_init: number, filter: number ) => {
-    debugger;
 
-    const search = (filter === 1) ? 'sort: fechaImportacion,desc' : '';
-    console.log(search);
+    const search = (filter === 1) ? 'fechaImportacion,desc' : (filter === 2) ? 'fecha,desc' : '';
 
     return this.http.get<Comprobantes>(`${ api_url }/listar`, {
       params: {
         size: sizen,
         page: page_init,
-        search,
+        sort: search,
       }
     })
     .pipe(

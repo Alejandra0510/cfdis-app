@@ -1,5 +1,9 @@
 <dialog #myModalInfoCFDI class="modal">
   <div class="modal-box w-11/12 max-w-5xl">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <br>
     <!-- Muestra spinner de carga si la petición está activa -->
     @if (infoById.isLoading()) {
       <div class="flex justify-center p-4">

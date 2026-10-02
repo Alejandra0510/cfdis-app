@@ -1,42 +1,34 @@
 import { Component, input, output, ViewChild } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
 
 import { CFDI } from '../../interfaces/cfdi.interface';
-import { ModalInfoComponent } from '../modal-info/modal-info.component';
 import { PaginationComponent } from "../pagination/pagination.component";
-import { ModalJsonComponent } from '../modal-json/modal-json.component';
+import { ListDtlComponent } from './list-dtl/list-dtl.component';
 @Component({
   selector: 'list-cfdis-component',
-  imports: [CurrencyPipe, ModalInfoComponent, PaginationComponent, ModalJsonComponent],
+  imports: [PaginationComponent, ListDtlComponent],
   templateUrl: './list-cfdis.component.html',
 })
 
 export class ListCfdisComponent {
-  lists = input.required<CFDI[]>();
-
-  size = input.required<number>();
-
-  rows = input.required<number>();
-  pages = input.required<number>();
-
+  lists    = input.required<CFDI[]>();
+  size     = input.required<number>();
+  rows     = input.required<number>();
+  pages    = input.required<number>();
   page_act = input.required<number>();
+  checked  = input<number>(0);
 
   pageChange = output<number>();
   flagChecked= output<number>();
 
- @ViewChild(ModalInfoComponent) modalInfo!: ModalInfoComponent;
- @ViewChild(ModalJsonComponent) modalJson!: ModalJsonComponent;
-
-  openModalInfo(id: number): void {
-    this.modalInfo?.open(id);
+  orderByFecha(order: Event){
+    if(!order) return;
+    const isChecked = order.target as HTMLInputElement;
+    (isChecked.checked) ? this.flagChecked.emit(parseInt(isChecked.value)) : this.flagChecked.emit(0);
   }
 
-  openModalJSON(id: number) {
-    this.modalJson?.open(id);
-  }
 
-  orderByFecha(change: any){
-    const isChecked = (change.target.checked) ? 1 : 2;
-    this.flagChecked.emit(isChecked);
+  cleanFill(event: Event){
+    event.preventDefault();
+    this.flagChecked.emit(0);
   }
 }
