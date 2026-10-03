@@ -1,25 +1,37 @@
-<dialog #myModalFile class="modal">
+<dialog #myModalFile class="modal" (close)="resetForm()">
   <div class="modal-box">
-    <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-    </form>
     <h2 class="text-lg font-bold">Importar Comprobante</h2>
     <br>
-    <form autocomplete="off" [formGroup]="formFile" ngOnSubmit="saveFile()">
+    <form autocomplete="off" [formGroup]="formFile" (ngSubmit)="onSubmit()">
+      @if (errorMessage()) {
+        <div role="alert" class="alert alert-vertical sm:alert-horizontal alert-error alert-soft" id="mi-alert">
+          <div>
+            <h3 class="font-bold">Ocurrió un error!</h3>
+            <div class="text-xs">{{ errorMessage() }}</div>
+          </div>
+          <button (click)="dismissError()"
+                  class="btn btn-sm btn-circle btn-ghost"
+                  type="button">✕</button>
+        </div>
+      }
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Seleccione un archivo</legend>
-        <input type="file"
-              class="file-input w-full"
-              accept="text/xml"
-              (change)="onFileChange($event)" />
+        <input #fileInput
+               type="file"
+               accept="text/xml, application/xml"
+               class="file-input w-full"
+               (change)="onFileChange($event)" />
         <span class="label text-error">Archivos tipo XML</span>
       </fieldset>
       <div class="modal-action">
-        <form method="dialog">
-          <button class="btn btn-secondary btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md mr-2">Cancelar</button>
+          <button class="btn btn-secondary btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md mr-2"
+                  (click)="close()"
+                  type="button">Cancelar</button>
           <button type="submit"
-                  class="btn btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md">Guardar</button>
-        </form>
+                  class="btn btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-md"
+                  [disabled]="formFile.invalid || isLoading()">
+            {{ isLoading() ? 'Guardando...' : 'Guardar' }}
+          </button>
       </div>
     </form>
   </div>

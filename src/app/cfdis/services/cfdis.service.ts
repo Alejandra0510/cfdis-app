@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
-import { catchError, map, throwError } from "rxjs";
+import { catchError, map, Observable, throwError } from "rxjs";
 
 import { cfdiMapper } from "../mapper/cfdis.mapper";
 import { byCfdiMapper } from '../mapper/cfdi.mapper';
@@ -8,8 +8,7 @@ import { byCfdiMapper } from '../mapper/cfdi.mapper';
 import { Comprobantes } from "../interfaces/comprobantes.interface";
 import { ByCfdi } from "../interfaces/by.cfdi.interface";
 
-const api_url = 'http://10.9.9.15:8081/api/comprobantes';
-
+const api_url = 'http://10.9.9.15:8081/api';
 @Injectable({
   providedIn: 'root',
 })
@@ -25,7 +24,7 @@ export class CfdisService {
 
     const search = (filter === 1) ? 'fechaImportacion,desc' : (filter === 2) ? 'fecha,desc' : '';
 
-    return this.http.get<Comprobantes>(`${ api_url }/listar`, {
+    return this.http.get<Comprobantes>(`${api_url}/comprobantes/listar`, {
       params: {
         size: sizen,
         page: page_init,
@@ -51,7 +50,7 @@ export class CfdisService {
 
 
   getCfdiById = ( idCfdi : number ) => {
-    return this.http.get<ByCfdi>(`${ api_url}/comprobante`, {
+    return this.http.get<ByCfdi>(`${api_url}/comprobantes/comprobante`, {
       params: {
         id: idCfdi
       }
@@ -67,10 +66,19 @@ export class CfdisService {
   }
 
 
-  uploadFileXML( file: File){
-
-    console.log({file});
-
+  uploadFileXML( form: FormData ): Observable<any> {
+    debugger;
+    return this.http.post(`${api_url}/importacion/comprobante`, form)
+    .pipe(
+      map((resp) => {
+        console.log({resp});
+      }),
+      catchError(error => {
+        console.error(`Error al subir el archivo XML: ${error.error}`);
+        const detalle = error.error?.message ?? error.error?.mensaje ?? (typeof error.error === 'string' ? error.error : '');
+        return throwError(() => new Error(`${error.error.error}, ${detalle}`));
+      })
+    )
   }
 
 }
