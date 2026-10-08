@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
 import { catchError, map, Observable, throwError } from "rxjs";
 
@@ -19,6 +19,12 @@ export class CfdisService {
 
   public count_rows  = signal<number>(0);
   public total_pages = signal<number>(0);
+
+  reloadTrigger = signal(0);
+
+  reload() {
+    this.reloadTrigger.update(v => v + 1);
+  }
 
   getByAllCfdis = (sizen: number, page_init: number, filter: number ) => {
 
@@ -67,16 +73,24 @@ export class CfdisService {
 
 
   uploadFileXML( form: FormData ): Observable<any> {
-    debugger;
-    return this.http.post(`${api_url}/importacion/comprobante`, form)
+    return this.http.post(`${api_url}/importacion/comprobante`, form,{
+      observe: 'response',
+      responseType: 'text',
+    })
     .pipe(
-      map((resp) => {
-        console.log({resp});
-      }),
-      catchError(error => {
-        console.error(`Error al subir el archivo XML: ${error.error}`);
-        const detalle = error.error?.message ?? error.error?.mensaje ?? (typeof error.error === 'string' ? error.error : '');
-        return throwError(() => new Error(`${error.error.error}, ${detalle}`));
+      catchError((error: HttpErrorResponse) => {
+        let body: any = error.error;
+        if (typeof body === 'string') {
+          try { body = JSON.parse(body); } catch { /* texto plano */ }
+        }
+
+        const detalle =
+          body?.mensaje ?? body?.message ?? body?.error ??
+          (typeof body === 'string' ? body : '');
+
+        return throwError(
+          () => new Error(detalle || `Error ${error.status} al importar el comprobante`)
+        );
       })
     )
   }

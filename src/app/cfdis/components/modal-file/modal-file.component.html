@@ -3,21 +3,11 @@
     <h2 class="text-lg font-bold">Importar Comprobante</h2>
     <br>
     <form autocomplete="off" [formGroup]="formFile" (ngSubmit)="onSubmit()">
-      @if (errorMessage()) {
-        <div role="alert" class="alert alert-vertical sm:alert-horizontal alert-error alert-soft" id="mi-alert">
-          <div>
-            <h3 class="font-bold">Ocurrió un error!</h3>
-            <div class="text-xs">{{ errorMessage() }}</div>
-          </div>
-          <button (click)="dismissError()"
-                  class="btn btn-sm btn-circle btn-ghost"
-                  type="button">✕</button>
-        </div>
-      }
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Seleccione un archivo</legend>
         <input #fileInput
                type="file"
+               name="archivo"
                accept="text/xml, application/xml"
                class="file-input w-full"
                (change)="onFileChange($event)" />

@@ -2,7 +2,10 @@ import { Component, ElementRef, inject, output, signal, ViewChild } from '@angul
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CfdisService } from '../../services/cfdis.service';
+import Swal from 'sweetalert2';
+import { finalize } from 'rxjs';
 
+const flagReload = 1;
 const array_accept = ['text/xml', 'application/xml'];
 const isXmlFile = (file:File):boolean => array_accept.includes(file.type) || file.name.toLowerCase().endsWith('.xml');
 @Component({
@@ -18,8 +21,7 @@ export class ModalFileComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   isLoading = signal(false);
-  errorMessage = signal<string | null>(null);
-  selectedFile: File | null = null;
+  reloadInfo = output<number>();
 
   formFile: FormGroup = this.fb.group({
     archivo: [null, Validators.required]
@@ -36,60 +38,79 @@ export class ModalFileComponent {
 
   resetForm(): void {
     this.clearFile();
-    this.errorMessage.set(null);
   }
 
   onFileChange(event:Event){
-    debugger;
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0] ?? null;
 
-    this.errorMessage.set(null);
-
     if(file && !isXmlFile(file)) {
+      this.close();
       this.clearFile();
-      this.errorMessage.set('El archivo seleccionado no es un XML válido');
-      return;
+
+      Swal.fire({
+        icon:'error',
+        title:'Ooops..',
+        text: 'El archivo seleccionado no es un XML válido',
+      })
+      .then((result) => {
+        if(result.isConfirmed){
+          this.clearFile();
+          this.open();
+        }
+      });
     }
 
     this.formFile.patchValue({ archivo: file });
     this.formFile.get('archivo')?.markAsTouched();
   }
 
-  dismissError(): void{
-    this.errorMessage.set(null);
-    this.clearFile();
-  }
-
   onSubmit() {
-    debugger;
+
     if (this.formFile.invalid) {
       this.formFile.markAllAsTouched();
       return;
     }
 
-    const file: File = this.formFile.value.file;
+    const file: File = this.formFile.value.archivo;
+
+    const xmlFile = new File([file], file.name, { type: 'application/xml' });
 
     const formData = new FormData();
-    formData.append('xml', file, file.name);
+    formData.append('xml', xmlFile, xmlFile.name);
 
     this.isLoading.set(true);
-    this.errorMessage.set(null);
 
     this.cfdiService.uploadFileXML(formData)
+    .pipe(finalize(() => this.isLoading.set(false)))
     .subscribe({
       next: (resp) => {
-        console.log('Archivo enviado', resp);
-        this.isLoading.set(false);
         this.close();
+        this.resetForm();
+        if (resp.status === 201) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Comprobante agregado exitosamente'
+          })
+          .then(() => this.reloadInfo.emit(flagReload))
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            text: `Respuesta inesperada (${resp.status})`
+          })
+        }
       },
       error: (err: Error) => {
-        this.isLoading.set(false);
-        this.errorMessage.set(err.message);
+        this.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Error..',
+          text: `Respuesta inesperada (${err.message})`
+        })
       },
     });
   }
-
 
   private clearFile(){
     this.formFile.reset();

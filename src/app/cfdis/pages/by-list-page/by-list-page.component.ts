@@ -21,7 +21,7 @@ export class ByListPageComponent {
 
 
   cfdiResource = rxResource({
-    params: () => ({ size: this.size(), page: this.page_initial(), filter: this.filter() }),
+    params: () => ({ size: this.size(), page: this.page_initial(), filter: this.filter(), reload: this.cfdiService.reloadTrigger() }),
     stream: ({ params }) => {
       return this.cfdiService.getByAllCfdis( params.size, params.page, params.filter )
     }

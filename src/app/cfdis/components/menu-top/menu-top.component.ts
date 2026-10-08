@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, output, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { ModalFileComponent } from "../modal-file/modal-file.component";
 
@@ -9,8 +9,9 @@ import { ModalFileComponent } from "../modal-file/modal-file.component";
 })
 export class MenuTopComponent {
 
-  @ViewChild(ModalFileComponent) modalFile!: ModalFileComponent;
+  reloadInfo = output<number>();
 
+  @ViewChild(ModalFileComponent) modalFile!: ModalFileComponent;
 
   goExit = () => {
       window.location.assign('./');
