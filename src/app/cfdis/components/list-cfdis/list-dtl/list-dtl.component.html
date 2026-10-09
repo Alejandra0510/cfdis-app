@@ -4,7 +4,8 @@
           <thead class="bg-base-200 text-xs uppercase tracking-wide">
             <tr class="hover:bg-base-300/50">
               <th>#</th>
-              <th>Fecha</th>
+              <th>Fecha del Comprobante</th>
+              <th>Fecha de Importación</th>
               <th>Serie</th>
               <th>Folio Fiscal</th>
               <th>RFC Emisor</th>
@@ -20,6 +21,7 @@
               <tr class="hover:bg-base-300/50">
                 <td class="text-base-content/60">{{ dtl.id }}</td>
                 <td class="whitespace-nowrap">{{ dtl.fecha }}</td>
+                <td class="whitespace-nowrap">{{ dtl.fechai }}</td>
                 <td>{{ dtl.serie }}</td>
                 <td class="font-mono text-xs">{{ dtl.folio }}</td>
                 <td class="font-mono text-xs">{{ dtl.rfc_e }}</td>

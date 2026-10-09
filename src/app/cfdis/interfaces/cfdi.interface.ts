@@ -10,6 +10,7 @@ export interface CFDI {
   met_p: string,
   frm_p: string,
   tip_c: string,
-  total: number
+  total: number,
+  fechai: Date
 }
 

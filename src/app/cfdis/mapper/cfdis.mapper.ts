@@ -16,7 +16,8 @@ export class cfdiMapper {
       met_p: item.metodoPago,
       frm_p: item.formaPago,
       tip_c: item.tipoComprobante,
-      total: item.total
+      total: item.total,
+      fechai: item.fechaImportacion,
     }
   }
 
