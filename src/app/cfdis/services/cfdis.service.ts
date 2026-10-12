@@ -8,7 +8,9 @@ import { byCfdiMapper } from '../mapper/cfdi.mapper';
 import { Comprobantes } from "../interfaces/comprobantes.interface";
 import { ByCfdi } from "../interfaces/by.cfdi.interface";
 
-const api_url = 'http://10.9.9.15:8081/api';
+// const api_url = 'http://10.9.9.15:8081/api';
+const api_url = '/api';
+
 @Injectable({
   providedIn: 'root',
 })
